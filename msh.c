@@ -19,17 +19,23 @@ int main(int argc, const char *argv[])
 
     char command[BUFF_SIZE];
     char* prompt = "$ ";
+    char exit_token[BUFF_SIZE];
 
     while (1) {
         printf("%s", prompt);
         fgets(command, BUFF_SIZE, stdin);
 
-        pid = fork();
-
-
-        if (command == "") {
-
+        // Ensure exit command
+        /*
+        if (strcmp(command, exit_token) == 0) {
+            printf("EXIT!!!!");
+            exit(0);
+        } else {
+            printf("NO EXIT!!!\n");
         }
+        */
+
+        pid = fork();
 
         if (pid == 0) {
             execl("/bin/ls", command, 0);
@@ -40,7 +46,6 @@ int main(int argc, const char *argv[])
 
         wait(&status);
     }
-
 
     return 0;
 }
