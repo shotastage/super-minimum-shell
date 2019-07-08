@@ -7,7 +7,10 @@
 
 
 #define BUFF_SIZE 4096
-
+#define BIN_DIR "/bin"
+#define BIN_USERLAND "/usr/bin"
+#define BIN_ADMIN "/usr/sbin"
+#define BIN_CUSTOM "/usr/local/bin"
 
 int main(int argc, const char *argv[])
 {
@@ -25,20 +28,11 @@ int main(int argc, const char *argv[])
         printf("%s", prompt);
         fgets(command, BUFF_SIZE, stdin);
 
-        // Ensure exit command
-        /*
-        if (strcmp(command, exit_token) == 0) {
-            printf("EXIT!!!!");
-            exit(0);
-        } else {
-            printf("NO EXIT!!!\n");
-        }
-        */
-
         pid = fork();
 
         if (pid == 0) {
-            execl("/bin/ls", command, 0);
+
+            execl(strcat(BIN_DIR, command), command, 0);
             // exit(0);
         } else {
             // exit(0);
